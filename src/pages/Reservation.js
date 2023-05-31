@@ -13,29 +13,12 @@ import * as Yup from "yup"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import moment from "moment/moment"
-import { useSubmit } from "../context/SubmitContext"
+import { fetchAPI, submitAPI } from "../utils/utils"
+import { useNavigate } from "react-router-dom"
 
 const Reservation = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const availableTime = [
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-    "20:30",
-    "21:00",
-    "21:30",
-    "22:00",
-    "22:30",
-    "23:00",
-    "23:30",
-  ]
-  const { submit } = useSubmit()
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -47,7 +30,10 @@ const Reservation = () => {
     },
     onSubmit: async (values) => {
       setIsLoading(true)
-      await submit(values)
+      const res = await submitAPI(values)
+      if (res) {
+        navigate("/confirmation", { state: { values } })
+      }
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -173,7 +159,7 @@ const Reservation = () => {
                   }
                 >
                   <MenuItem value="">No Selected</MenuItem>
-                  {availableTime.map((time) => (
+                  {fetchAPI(formik.values.date).map((time) => (
                     <MenuItem
                       key={time}
                       value={time}
@@ -181,7 +167,7 @@ const Reservation = () => {
                     >
                       {time}
                     </MenuItem>
-                  ))}{" "}
+                  ))}
                 </Select>
               </FormControl>
 

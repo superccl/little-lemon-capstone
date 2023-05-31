@@ -8,10 +8,10 @@ const HomeInfo = () => {
         <h2>Our New Menu</h2>
         <img src="/assets/dish.webp" alt="A delicous dish" />
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Libero in accusantium molestias error architecto eligendi
-          rerum temporibus aut quis quasi omnis exercitationem harum
-          magni, ut excepturi repudiandae sequi doloribus aspernatur.
+          Welcome to our new menu at our restaurant! We are excited to
+          introduce you to our latest and greatest menu items. From
+          our signature dishes to our innovative toppings, we have
+          something for everyone.
         </p>
         <Link to="/menu" className="btn btn-primary">
           Our Menu
@@ -21,10 +21,13 @@ const HomeInfo = () => {
         <h2>Book a table</h2>
         <img src="/assets/book-a-table.jpg" alt="Book a table" />
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          Libero in accusantium molestias error architecto eligendi
-          rerum temporibus aut quis quasi omnis exercitationem harum
-          magni, ut excepturi repudiandae sequi doloribus aspernatur.
+          Once your reservation is confirmed, you will receive a
+          confirmation email with your reservation details and a link
+          to check-in. You will also receive an email with the exact
+          time and date for your table. Please note that reservations
+          must be made at least 24 hours in advance. If you have any
+          questions or concerns, please do not hesitate to contact us.
+          We are here to help!
         </p>
         <Link to="/reserve-table" className="btn btn-primary">
           Reserve Table
