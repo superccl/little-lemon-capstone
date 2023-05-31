@@ -26,7 +26,7 @@ const Hero = () => {
         </Link>
       </div>
       <img
-        class="hero-image"
+        className="hero-image"
         src="/assets/salad.jpg"
         alt="A delicous salad"
       />

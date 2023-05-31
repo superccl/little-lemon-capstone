@@ -1,16 +1,40 @@
 import { useState } from "react"
 import { useFormik } from "formik"
-import { Box, TextField, Stack, Modal } from "@mui/material"
+import {
+  Box,
+  TextField,
+  Stack,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+} from "@mui/material"
 import * as Yup from "yup"
 import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import moment from "moment/moment"
-import GetAvailableTime from "../components/GetAvailableTime"
 import { useSubmit } from "../context/SubmitContext"
 
 const Reservation = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [isOpen ,setIsOpen] = useState(false)
+  const availableTime = [
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+    "18:00",
+    "18:30",
+    "19:00",
+    "19:30",
+    "20:00",
+    "20:30",
+    "21:00",
+    "21:30",
+    "22:00",
+    "22:30",
+    "23:00",
+    "23:30",
+  ]
   const { submit } = useSubmit()
   const formik = useFormik({
     initialValues: {
@@ -42,7 +66,7 @@ const Reservation = () => {
       <Stack
         direction="column"
         style={{
-          marginTop: "100px",
+          marginTop: "50px",
           alignItems: "center",
         }}
       >
@@ -131,30 +155,35 @@ const Reservation = () => {
                 }
                 required
               />
-                            <TextField
-                id="time"
-                name="time"
-                label="time"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                onClick={() => setIsOpen(true)}
-                value={formik.values.time}
-                error={!!formik.errors.time && !!formik.touched.time}
-                helperText={
-                  !!formik.touched.time && formik.errors.time
-                }
-                required
-              />
-
-              <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                <>
-                  <GetAvailableTime date={formik.values.date} handleOnClick={time => {
-                    formik.values.time = time
-                    setIsOpen(false)
-                    }} />
-                </>
-
-              </Modal>
+              <FormControl fullWidth>
+                <InputLabel id="time-select-label" required>
+                  Time
+                </InputLabel>
+                <Select
+                  labelId="time-select-label"
+                  id="time-select"
+                  value={formik.values.time}
+                  label="Time"
+                  onChange={(e) => {
+                    formik.setFieldValue("time", e.target.value)
+                  }}
+                  required
+                  error={
+                    !!formik.errors.time && !!formik.touched.time
+                  }
+                >
+                  <MenuItem value="">No Selected</MenuItem>
+                  {availableTime.map((time) => (
+                    <MenuItem
+                      key={time}
+                      value={time}
+                      disabled={Math.random() > 0.5}
+                    >
+                      {time}
+                    </MenuItem>
+                  ))}{" "}
+                </Select>
+              </FormControl>
 
               <button type="submit" className="btn btn-primary">
                 {isLoading ? (
